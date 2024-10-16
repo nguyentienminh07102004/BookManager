@@ -1,0 +1,49 @@
+- ID
+- Tên
+- Thể loại
+- Giá
+- Tác giả
+- Mô tả
+- Rating
+- số lương đánh giá
+- số lượng
+	- book_author
+- List<hình ảnh_id>
+
+tác giả
+ - id 
+ - mô tả
+ - tên
+
+khách hàng
+	- id
+	- tên
+	- email
+	- SĐT
+	- 
+ đơn hàng
+	-id
+	- id_khách
+	- List<>
+	- total
+	- status
+- item_đơn
+	- id 
+	- bookId
+	- số lượng
+	- Giá_total
+	
+hình ảnh
+	- id 
+	- blob
+	- name
+
+
+- ADmin
+	- CRUD sách, tác giá, hình ảnh, thể loại
+	-
+- Client
+	- Xem sách
+	- Đặt sách, huỷ
+	- bình luận đánh giá
+	
