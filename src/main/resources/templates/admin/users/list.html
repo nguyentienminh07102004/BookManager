@@ -11,30 +11,30 @@
 </head>
 <body>
 <div layout:fragment="content">
-  <table class="table table-hover">
-    <thead class="thead-dark">
-      <tr>
-        <th>STT</th>
-        <th>Họ và tên</th>
-        <th>Email</th>
-        <th>Quyền</th>
-        <th>Hành động</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr th:each="user, index : ${listUsers}">
-        <td th:text="${index.count}"></td>
-        <td th:text="${user.getFullName()}"></td>
-        <td th:text="${user.getEmail()}"></td>
-        <td th:text="${user.getRoles()}"></td>
-        <td>
-          <button class="btn btn-sm btn-info mr-1">Chi tiết</button>
-          <button class="btn btn-sm btn-warning mr-1">Sửa</button>
-          <button class="btn btn-sm btn-danger">Xoá</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th>STT</th>
+            <th>Họ và tên</th>
+            <th>Email</th>
+            <th>Quyền</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user, index : ${listUsers}">
+            <td th:text="${index.count}"></td>
+            <td th:text="${user.getFullName()}"></td>
+            <td th:text="${user.getEmail()}"></td>
+            <td th:text="${user.getRoles()}"></td>
+            <td>
+                <button class="btn btn-sm btn-info mr-1">Chi tiết</button>
+                <button class="btn btn-sm btn-warning mr-1">Sửa</button>
+                <button class="btn btn-sm btn-danger">Xoá</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

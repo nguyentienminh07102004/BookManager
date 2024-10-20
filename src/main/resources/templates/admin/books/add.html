@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layouts/default.html}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Add Book</title>
+  <script th:src="@{/js/books/ajax.js}"></script>
+  <style>
+    #authors-list {
+      position: absolute;
+      background-color: white;
+      border: 1px solid #ccc;
+      z-index: 1000;
+      width: 50%; /
+      display: none;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    #authors-list li {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div layout:fragment="content">
+
+  <form id="addBookForm" method="post">
+    <div class="form-group">
+      <label for="name">Tên Sách</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tên sách" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Mô Tả</label>
+      <textarea class="form-control" id="description" name="description" rows="3" placeholder="Nhập mô tả"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="price">Giá Sách</label>
+      <input type="number" class="form-control" id="price" name="price" placeholder="Nhập giá sách" required>
+    </div>
+    <div class="form-group">
+      <label for="authorSearch">Tác Giả</label> <div id="selected-authors"></div>
+      <input type="text" class="form-control" id="authorSearch" placeholder="Nhập tên tác giả">
+      <div id="authors-list">
+        <ul class="list-group" ></ul>
+      </div>
+    </div>
+    <div id="hidden-checkbox" style="display:none;"></div>
+    <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+    <button type="button" class="btn btn-primary" id="new-author-btn">New Author</button>
+  </form>
+</div>
+</body>
+</html>
