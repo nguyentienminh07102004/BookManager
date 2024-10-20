@@ -7,7 +7,10 @@ import com.qlBanSach.BookManager.Model.Response.BookResponse;
 import com.qlBanSach.BookManager.MyExceptionHandler.DataInvalidException;
 import com.qlBanSach.BookManager.Repository.IBookRepository;
 import com.qlBanSach.BookManager.Service.Author.AuthorService;
+import com.qlBanSach.BookManager.Utils.Pagination;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +22,8 @@ public class BookServiceImpl implements IBookService {
     private final BookConvertor bookConvertor;
     private final IBookRepository bookRepository;
     private final AuthorService authorService;
+    private final Pagination pagination;
+
     @Override
     public BookResponse saveBook(BookDTO book) {
         if(book.getId() != null) {
@@ -41,5 +46,12 @@ public class BookServiceImpl implements IBookService {
         ids.forEach(id -> bookRepository.findById(id)
                 .orElseThrow(() -> new DataInvalidException("Book not found!!!")));
         bookRepository.deleteAllById(ids);
+    }
+
+    @Override
+    public Page<BookResponse> getAllBooks(Integer page, Integer limit) {
+        Pageable pageable = pagination.pageUtil(page, limit);
+        Page<BookEntity> bookEntities = bookRepository.findAll(pageable);
+        return bookEntities.map(bookConvertor::entityToResponse);
     }
 }
