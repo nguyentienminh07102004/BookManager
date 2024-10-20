@@ -1,14 +1,6 @@
 package com.qlBanSach.BookManager.Model.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,7 +21,7 @@ public class BookEntity extends BaseEntity {
     private Double price;
     @Column(name = "description", columnDefinition = "LONGTEXT")
     private String description;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "author_book",
     joinColumns = @JoinColumn(name = "bookId", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "authorId", referencedColumnName = "id"))

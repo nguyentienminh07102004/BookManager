@@ -18,13 +18,11 @@ import java.util.List;
 @Setter
 public class AuthorEntity extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private String id;
+    private Long id;
     @Column(name = "name")
     private String name;
-    @Column(name = "address")
-    private String address;
     @Column(name = "description", columnDefinition = "LONGTEXT")
     private String description;
 
