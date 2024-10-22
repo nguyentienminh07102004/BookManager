@@ -1,0 +1,63 @@
+.itemClient {
+    width: 100%;
+    display: flex;
+    gap: 2rem;
+    padding: 2rem 1rem;
+    background: #FFF1f1;
+    border-radius: 1rem;
+}
+
+.itemClient .image {
+    flex: 2;
+    border: solid 1px #ccc;
+    border-radius: 16px;
+    max-height: min-content;
+}
+
+.itemClient .image img {
+    border-radius: 16px;
+}
+
+.itemClient .content {
+    flex: 5;
+}
+
+.itemClient .content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: red;
+}
+
+.itemClient .content .info p {
+    margin-top: 1rem;
+    color: #666;
+}
+
+.itemClient .content .price {
+    margin-top: 1rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: red;
+}
+
+.itemClient .content .button {
+    display: flex;
+    gap: 1rem;
+}
+
+.itemClient .content .button button {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    background-color: red;
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.itemClient .content button.addItem {
+    background: white;
+    border: solid 1px red;
+    color: black;
+}

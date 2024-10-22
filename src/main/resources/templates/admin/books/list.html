@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layouts/default.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th>STT</th>
+            <th>Tên</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book, index : ${books}">
+            <td th:text="${index.count}"></td>
+            <td th:text="${book.getName()}"></td>
+            <td th:text="${book.getPrice()}"></td>
+            <td th:text="${book.getQuantity()}"></td>
+            <td>
+                <a class="btn btn-sm btn-info mr-1" th:href="@{/admin/books/{id}(id = ${book.getId()})}">Chi tiết</a>
+                <a class="btn btn-sm btn-warning mr-1 update" th:href="@{/admin/books/{id}/update(id = ${book.id})}">Sửa</a>
+                <button class="btn btn-sm btn-danger delete" th:value="${book.getId()}">Xoá</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <script>
+        $(document).ready(function () {
+            $('.delete').click(function (ev) {
+                var id = ev.target.getAttribute('value');
+                $.ajax({
+                    url: '/admin/books/' + id,
+                    type: 'DELETE',
+                    success: function (data) {
+                        alert('Xoá sách thành công');
+                        window.location.reload();
+                    },
+                    error: function (error) {
+                        alert('Xoá sách thất bại');
+                    }
+                });
+            });
+        });
+    </script>
+</div>
+</body>
+</html>

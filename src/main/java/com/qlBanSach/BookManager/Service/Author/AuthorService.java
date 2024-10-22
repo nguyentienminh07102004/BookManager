@@ -37,16 +37,20 @@ public class AuthorService {
         authorRepository.delete(author);
     }
 
+    public List<AuthorResponse> getAllAuthorsByBookId(String bookId) {
+        return authorRepository.findByBooks_Id(bookId).stream()
+                .map(authorConvertor::entityToResponse)
+                .toList();
+    }
+
     public List<AuthorResponse> getAllAuthorsByName(String name) {
-        List<AuthorEntity> authorEntities = authorRepository.findByNameStartingWith(name);
-        List<AuthorResponse> authorResponses = new ArrayList<>();
-        if (!authorEntities.isEmpty()) {
-            authorEntities.forEach(authorEntity -> {
-                AuthorResponse authorResponse = authorConvertor.entityToResponse(authorEntity);
-                authorResponses.add(authorResponse);
-            });
+        List<AuthorEntity> authorResponses = new ArrayList<>();
+        if(name == null) {
+            authorResponses = authorRepository.findAll();
+        } else {
+            authorResponses = authorRepository.findByNameContaining(name);
         }
-        return authorResponses;
+        return authorResponses.stream().map(authorConvertor::entityToResponse).toList();
     }
 
     public AuthorEntity getAuthorById(Long authorId) {

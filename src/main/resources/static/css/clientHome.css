@@ -1,0 +1,60 @@
+.row {
+	margin: 0 !important;
+}
+
+.product{
+	margin-top: 4rem;
+	position: relative;
+	padding: 2rem 0;
+	width: 100%;
+	height: 100%;
+	background: #FFF2F1;
+}
+
+.productTitle{
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 0.5rem 2rem;
+	background: #f00;
+	color: white;
+}
+
+.productTitle span{
+	color: yellow;
+}
+
+.product .productItem{
+	padding: 0.5rem;
+	margin-bottom: 2rem;
+}
+
+.product .productItem .image {
+	padding: 0.25rem;
+	background: white;
+	cursor: pointer;
+}
+
+.product .content {
+	display: flex;
+	flex-direction: column;
+	margin-top: 0.25rem;
+}
+
+.product .title{
+	color: black;
+	font-weight: 600;
+	font-size: 0.875rem;
+	cursor: pointer;
+}
+
+.product .title:hover{
+	color: red;
+}
+
+.product .price{
+	font-size: 1.25rem;
+	color: red;
+	font-weight: 700;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layouts/default.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <h1>Sửa Tác Giả</h1>
+        <form id="addAuthorForm" method="post">
+            <div class="form-group">
+                <label for="name">Tên Tác Giả</label>
+                <input type="text" th:value="${author.getName()}" class="form-control" id="name" name="name" placeholder="Nhập tên tác giả" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Mô Tả</label>
+                <textarea th:text="${author.description}" class="form-control" id="description" name="description" rows="3" placeholder="Nhập mô tả"></textarea>
+            </div>
+            <!-- Add hidden input for author id -->
+            <input type="hidden" id="id" name="id" th:value="${author.getId()}">
+            <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+            <a th:href="@{/admin/authors/list}" class="btn btn-secondary">Cancel</a>
+        </form>
+        <script>
+            $(document).ready(function () {
+                $('#addAuthorForm').submit(function (e) {
+                    e.preventDefault();
+                    var id = $('#id').val();
+                    var name = $('#name').val();
+                    var description = $('#description').val();
+                    $.ajax({
+                        url: '/admin/authors',
+                        type: 'PUT',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            id: id,
+                            name: name,
+                            description: description
+                        }),
+                        success: function (data) {
+                            alert('Sửa tác giả thành công');
+                            window.location.href = '/admin/authors/list';
+                        },
+                        error: function (error) {
+                            alert('Sửa tác giả thất bại');
+                        }
+                    });
+                });
+            });
+        </script>
+    </div>
+</body>
+</html>

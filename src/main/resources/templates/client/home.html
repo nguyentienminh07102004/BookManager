@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{client/layouts/default.html}">
+<head>
+    <link rel="stylesheet" th:href="@{/css/clientHome.css}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <div class="product">
+            <h1 class="productTitle h3 mb-4">
+                SẢN PHẨM <span>NỔI BẬT</span>
+            </h1>
+            <div class="row" style="width: 100%">
+                <div class="col-2 productItem">
+                    <div class="image">
+                        <img
+                                width="100%"
+                                src="https://bizweb.dktcdn.net/100/445/986/products/8938507004325.jpg?v=1729589394100"
+                        />
+                    </div>
+                    <div class="content">
+                        <span class="title">Mật ngữ 1</span>
+                        <span class="price"
+                        >150000<span class="unitPrice"
+                        >đ</span
+                        ></span
+                        >
+                    </div>
+                </div>
+                <div class="col-2 productItem">
+                    <div class="image">
+                        <img
+                                width="100%"
+                                src="https://bizweb.dktcdn.net/100/445/986/products/8938507004325.jpg?v=1729589394100"
+                        />
+                    </div>
+                    <div class="content">
+                        <span class="title">Mật ngữ 1</span>
+                        <span class="price"
+                        >150000<span class="unitPrice"
+                        >đ</span
+                        ></span
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

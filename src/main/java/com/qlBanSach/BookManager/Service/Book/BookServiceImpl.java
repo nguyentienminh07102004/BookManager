@@ -33,7 +33,7 @@ public class BookServiceImpl implements IBookService {
         BookEntity bookEntity = bookConvertor.dtoToEntity(book);
 
         bookEntity.setAuthors(new ArrayList<>());
-        book.getAuthorIds().forEach(id -> {
+        book.getAuthors().forEach(id -> {
             bookEntity.getAuthors().add(authorService.getAuthorById(id));
         });
 
@@ -49,9 +49,14 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
-    public Page<BookResponse> getAllBooks(Integer page, Integer limit) {
-        Pageable pageable = pagination.pageUtil(page, limit);
-        Page<BookEntity> bookEntities = bookRepository.findAll(pageable);
-        return bookEntities.map(bookConvertor::entityToResponse);
+    public List<BookResponse> getAllBooks() {
+        List<BookEntity> bookEntities = bookRepository.findAll();
+        return bookEntities.stream().map(bookConvertor::entityToResponse).toList();
+    }
+
+    @Override
+    public BookResponse getBookById(String id) {
+        return bookConvertor.entityToResponse(bookRepository.findById(id)
+                .orElseThrow(() -> new DataInvalidException("Book not found!!!")));
     }
 }

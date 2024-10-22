@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layouts/default.html}"><head>
+    <link rel="stylesheet" th:href="@{/css/clientItem.css}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <div class="itemClient">
+            <div class="image">
+                <img
+                        width="100%"
+                        src="https://bizweb.dktcdn.net/100/445/986/products/8935352611975.jpg?v=1729312842083"
+                        alt=""
+                />
+            </div>
+            <div class="content">
+                <h1>Item Name</h1>
+                <div class="info">
+                    <p>Product Description</p>
+                    <p>Quantity: 10</p>
+                    <p>Category: Category</p>
+                    <p>Author: Author</p>
+                </div>
+                <p class="price">Price: $99.99</p>
+                <div class="button">
+                    <button class="buyItem">buy</button>
+                    <button class="addItem">add to cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -17,4 +17,5 @@ public class BookResponse {
     private Double price;
     private String description;
     private String authors;
+    private Long quantity;
 }

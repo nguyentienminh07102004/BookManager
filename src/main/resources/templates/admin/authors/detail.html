@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layouts/default.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Chi Tiết Tác Giả</h1>
+    <div>
+        <span>ID: </span>
+        <span th:text="${author.getId()}"></span>
+    </div>
+    <div>
+        <span>Author Name: </span>
+        <span th:text="${author.getName()}"></span>
+    </div>
+    <div>
+        <span>
+            Author Description:
+        </span>
+        <span th:text="${author.getDescription()}"></span>
+    </div>
+</div>
+</body>
+</html>

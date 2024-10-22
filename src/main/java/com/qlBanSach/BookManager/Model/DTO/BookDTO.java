@@ -18,5 +18,6 @@ public class BookDTO {
     private String name;
     private String description;
     private Double price;
-    private List<Long> authorIds;
+    private List<Long> authors;
+    private Long quantity;
 }

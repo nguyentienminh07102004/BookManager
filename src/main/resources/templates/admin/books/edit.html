@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layouts/default.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add Book</title>
+    <style>
+        #authors-list {
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            z-index: 1000;
+            width: 50%; /
+        display: none;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <form id="addBookForm" method="post">
+        <div class="form-group">
+            <label for="name">Tên Sách</label>
+            <input type="text" th:value="${book.getName()}" class="form-control" id="name" name="name" placeholder="Nhập tên sách" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Mô Tả</label>
+            <textarea class="form-control" th:text="${book.getDescription()}" id="description" name="description" rows="3" placeholder="Nhập mô tả"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="price">Giá Sách</label>
+            <input type="number" th:value="${book.getPrice()}" class="form-control" id="price" name="price" placeholder="Nhập giá sách" required>
+        </div>
+        <div class="form-group">
+            <label for="authors">Tác Giả</label> <div id="selected-authors"></div>
+            <input type="text" th:value="${authors}" class="form-control" id="authors" name="authors" placeholder="Nhập tên tác giả">
+        </div>
+        <input type="hidden" th:value="${book.id}">
+        <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+        <a th:href="@{/admin/books/list}" class="btn btn-secondary">Cancel</a>
+    </form>
+    <script>
+        $(document).ready(function () {
+            $('#addBookForm').submit(function (e) {
+                e.preventDefault();
+                var name = $('#name').val();
+                var description = $('#description').val();
+                var price = $('#price').val();
+                var quantity = $('#quantity').val();
+                var authors = $('#authors').val().split("\\s+");
+                var id = $('input[type=hidden]').val();
+                $.ajax({
+                    url: '/admin/books/',
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        name: name,
+                        description: description,
+                        price: price,
+                        quantity: quantity,
+                        authors: authors,
+                        id: id
+                    }),
+                    success: function (data) {
+                        alert('Sửa sách thành công');
+                        window.location.href = '/admin/books/list';
+                    },
+                    error: function (error) {
+                        alert('Sửa sách thất bại');
+                    }
+                });
+            });
+        });
+    </script>
+</div>
+</body>
+</html>

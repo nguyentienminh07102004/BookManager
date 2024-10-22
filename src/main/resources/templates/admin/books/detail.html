@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layouts/default.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Chi Tiết Sách</h1>
+    <div>
+        <span>ID: </span>
+        <span th:text="${book.getId()}"></span>
+    </div>
+    <div>
+        <span>Book Name: </span>
+        <span th:text="${book.getName()}"></span>
+    </div>
+    <div>
+        <span>Book Description: </span>
+        <textarea th:text="${book.getDescription()}"></textarea>
+    </div>
+    <div>
+        <span>Price: </span>
+        <span th:text="${book.getPrice()}"></span>
+    </div>
+    <div>
+        <span>Quantity: </span>
+        <span th:text="${book.getQuantity()}"></span>
+    </div>
+    <div>
+        <span>Authors: </span>
+        <span th:text="${book.getAuthors()}"></span>
+    </div>
+</div>
+</body>
+</html>
