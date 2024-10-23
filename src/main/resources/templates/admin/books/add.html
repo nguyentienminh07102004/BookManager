@@ -8,19 +8,23 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Add Book</title>
+  <link rel="stylesheet" th:href="@{'https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css'}">
+  <script th:src="@{'https://cdn.jsdelivr.net/npm/@yaireo/tagify'}"></script>
+  <script th:src="@{/js/books/submit-ajax.js}"></script>
+  <script th:src="@{/js/books/image-handler.js}"></script>
   <style>
-    #authors-list {
-      position: absolute;
-      background-color: white;
-      border: 1px solid #ccc;
-      z-index: 1000;
-      width: 50%; /
-      display: none;
-      max-height: 200px;
-      overflow-y: auto;
+    .tagify {
+      height: 50px;
     }
-    #authors-list li {
-      cursor: pointer;
+    .thumbnail-preview {
+      width: 200px;
+      height: 200px;
+      border: 1px solid;
+      overflow: hidden;
+    }
+    #error {
+      color: red;
+      margin-left: 10px;
     }
   </style>
 </head>
@@ -28,6 +32,18 @@
 <div layout:fragment="content">
 
   <form id="addBookForm" method="post">
+    <div class="form-group">
+      <label for="thumbnail">Ảnh Bìa</label>
+      <div class="d-flex">
+        <div class="thumbnail-preview">
+          <img src="" alt="thumbnail" id="thumbnail-preview" width="100%">
+        </div>
+        <div>
+          <input type="file" class="form-control" id="thumbnail" name="thumbnail">
+          <p id="error"></p>
+        </div>
+      </div>
+    </div>
     <div class="form-group">
       <label for="name">Tên Sách</label>
       <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tên sách" required>
@@ -44,43 +60,12 @@
       <label for="quantity">Số Lượng</label>
       <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Nhập số lượng" required>
     </div>
-    <div id="form-group">
-      <label for="authors">Tác Giả</label>
-      <input type="text" class="form-control" id="authors" name="authors" placeholder="Nhập tên tác giả">
+    <div class="form-group">
+      <label for="authorSearch">Tác Giả</label> <div id="selected-authors"></div>
+      <input type="text" class="form-control" id="authorSearch" placeholder="Nhập tên tác giả">
     </div>
     <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
   </form>
-  <script>
-    $(document).ready(function () {
-      $('#addBookForm').submit(function (e) {
-        e.preventDefault();
-        var name = $('#name').val();
-        var description = $('#description').val();
-        var price = $('#price').val();
-        var quantity = $('#quantity').val();
-        var authors = $('#authors').val().split("\\s+");
-        $.ajax({
-          url: '/admin/books/',
-          type: 'POST',
-          contentType: 'application/json',
-          data: JSON.stringify({
-            name: name,
-            description: description,
-            price: price,
-            quantity: quantity,
-            authors: authors
-          }),
-          success: function (data) {
-            alert('Thêm sách thành công');
-            window.location.href = '/admin/books/list';
-          },
-          error: function (error) {
-            alert('Thêm sách thất bại');
-          }
-        });
-      });
-    });
-  </script>
 </div>
 </body>
 </html>

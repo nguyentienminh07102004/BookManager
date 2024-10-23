@@ -78,4 +78,15 @@ public class AuthorController {
         view.addObject("author", author);
         return view;
     }
+
+    @GetMapping("/search")
+    @ResponseStatus(value = HttpStatus.OK)
+    public APIResponse searchByName(@RequestParam String name) {
+        List<AuthorResponse> authors = authorService.getAllAuthorsByName(name);
+        String message = authors.isEmpty() ? "NOT FOUND" : "FOUND";
+        return APIResponse.builder()
+                .message(message)
+                .response(authors)
+                .build();
+    }
 }

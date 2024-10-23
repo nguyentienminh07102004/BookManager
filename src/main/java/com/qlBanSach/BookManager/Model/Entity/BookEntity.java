@@ -23,7 +23,9 @@ public class BookEntity extends BaseEntity {
     private String description;
     @Column(name = "quantity")
     private Long quantity;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @Column(name = "thumbnail", columnDefinition = "LONGTEXT")
+    private String thumbnail;
+    @ManyToMany()
     @JoinTable(name = "author_book",
     joinColumns = @JoinColumn(name = "bookId", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "authorId", referencedColumnName = "id"))
