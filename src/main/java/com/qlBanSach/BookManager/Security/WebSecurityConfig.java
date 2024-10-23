@@ -39,6 +39,12 @@ public class WebSecurityConfig {
                         .logoutUrl("/users/logout")
                         .clearAuthentication(true)
                         .permitAll())
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/users/login")
+                        .successHandler(authenticationSuccessHandler)
+                        .failureUrl("/users/login?error")
+                        .permitAll()
+                )
                 .build();
     }
 }
