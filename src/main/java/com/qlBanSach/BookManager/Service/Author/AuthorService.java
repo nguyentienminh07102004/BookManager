@@ -57,4 +57,12 @@ public class AuthorService {
         return authorRepository.findById(authorId)
                 .orElseThrow(() -> new DataInvalidException("Author Not Found!!!"));
     }
+
+    public AuthorEntity getOrCreateAuthor(String name) {
+        return authorRepository.findByName(name).orElseGet(() -> {
+            AuthorEntity authorEntity = new AuthorEntity();
+            authorEntity.setName(name);
+            return authorRepository.save(authorEntity);
+        });
+    }
 }

@@ -31,12 +31,10 @@ public class BookServiceImpl implements IBookService {
                     .orElseThrow(() -> new DataInvalidException("Book not found!!!"));
         }
         BookEntity bookEntity = bookConvertor.dtoToEntity(book);
-
         bookEntity.setAuthors(new ArrayList<>());
-        book.getAuthors().forEach(id -> {
-            bookEntity.getAuthors().add(authorService.getAuthorById(id));
+        book.getAuthors().forEach(authorName -> {
+            bookEntity.getAuthors().add(authorService.getOrCreateAuthor(authorName));
         });
-
         BookEntity response = bookRepository.save(bookEntity);
         return bookConvertor.entityToResponse(response);
     }
