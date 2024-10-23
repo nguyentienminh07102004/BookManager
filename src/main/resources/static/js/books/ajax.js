@@ -29,7 +29,7 @@ $(document).ready(function () {
             });
         }
     });
-// Ẩn kết quả tìm kiếm
+    // Ẩn kết quả tìm kiếm
     $(document).on('click', function(event) {
         const target = $(event.target);
         if (!target.closest('#authors-list input').length && !target.closest('#authors-list').length) {
