@@ -16,6 +16,8 @@ public class BookResponse {
     private String name;
     private Double price;
     private String description;
+    private String category;
     private String authors;
     private Long quantity;
+    private String thumbnail;
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{admin/layouts/default.html}"><head>
+      layout:decorate="~{client/layouts/default.html}"><head>
     <link rel="stylesheet" th:href="@{/css/clientItem.css}">
     <meta charset="UTF-8">
     <title>Title</title>
@@ -13,25 +13,40 @@
             <div class="image">
                 <img
                         width="100%"
-                        src="https://bizweb.dktcdn.net/100/445/986/products/8935352611975.jpg?v=1729312842083"
-                        alt=""
+                        th:src="${book.thumbnail}"
+                        th:alt="${book.name}"
                 />
             </div>
             <div class="content">
-                <h1>Item Name</h1>
+                <h1 th:text="${book.name}"></h1>
                 <div class="info">
-                    <p>Product Description</p>
-                    <p>Quantity: 10</p>
-                    <p>Category: Category</p>
-                    <p>Author: Author</p>
+                    <p th:text="${book.description}"></p>
+                    <p th:text="${'quantity: ' + book.quantity}"></p>
+                    <p th:text="${book.authors}"></p>
                 </div>
-                <p class="price">Price: $99.99</p>
+                <p class="price" th:text="${'price: ' + book.price}"></p>
                 <div class="button">
-                    <button class="buyItem">buy</button>
-                    <button class="addItem">add to cart</button>
+                    <button class="addItem" th:data-bookId="${book.id}">Add to cart</button>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        $(".addItem").on("click", (evt) => {
+            evt.preventDefault();
+            const id = evt.target.getAttribute("data-bookId");
+            $.ajax({
+                url: "/carts/cartItems/" + id,
+                method: "POST",
+                success: (res) => {
+                    console.log(res);
+                },
+                error: (err) => {
+                    console.log(err);
+                }
+            })
+        })
+    </script>
+</div>
 </body>
 </html>

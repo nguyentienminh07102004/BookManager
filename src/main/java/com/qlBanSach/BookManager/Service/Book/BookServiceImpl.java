@@ -54,7 +54,12 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public BookResponse getBookById(String id) {
-        return bookConvertor.entityToResponse(bookRepository.findById(id)
-                .orElseThrow(() -> new DataInvalidException("Book not found!!!")));
+        return bookConvertor.entityToResponse(getBookEntityById(id));
+    }
+
+    @Override
+    public BookEntity getBookEntityById(String id) {
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new DataInvalidException("Book not found!!!"));
     }
 }

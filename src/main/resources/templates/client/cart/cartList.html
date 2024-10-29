@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{admin/layouts/default.html}"><head>
+      layout:decorate="~{client/layouts/default.html}"><head>
     <link rel="stylesheet" th:href="@{/css/cartList.css}">
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,26 +10,56 @@
     <div layout:fragment="content">
         <div class="container-fluid">
             <div class="itemContainer">
-                <div class="item">
+                <div class="item" th:each="cartItem : ${cart.getCartItems()}">
                     <div class="image">
-                        <img height="100%" src="https://bizweb.dktcdn.net/100/445/986/products/8935352611975.jpg?v=1729312842083" alt="">
+                        <img height="100%" th:src="${cartItem.book.thumbnail}" th:alt="${cartItem.book.name}">
                     </div>
                     <div class="info">
                         <div class="infoItem">
-                            <span class="nameItem">name</span>
-                            <span class="quantity">so luong: 1</span>
-                            <span class="price">price: 30000</span>
+                            <span class="nameItem" th:text="${cartItem.book.name}"></span>
+                            <input type="number" min="1" th:value="${cartItem.quantity}" />
+                            <span class="price" th:text="${cartItem.totalPrice}"></span>
                         </div>
                         <div>
-                            <button class="delButton">delete</button>
+                            <button class="delButton" th:data-id="${cartItem.getId()}">delete</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="buttonContainer">
-                <button class="button">buy</button>
+                <button class="button" id="buy">BUY</button>
             </div>
         </div>
+        <script>
+            $("#buy").on("click", (evt) => {
+                evt.preventDefault();
+                $.ajax({
+                    url: "/orders/",
+                    method: "POST",
+                    success: (res) => {
+                        console.log(res);
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    }
+                });
+            });
+            $(".delButton").on("click", (evt) => {
+                evt.preventDefault();
+                const id = evt.target.getAttribute("data-id");
+                $.ajax({
+                    url: `/carts/${id}`,
+                    method: "DELETE",
+                    success: (res) => {
+                        console.log(res);
+                        window.location.reload();
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    }
+                })
+            })
+        </script>
     </div>
 </body>
 </html>

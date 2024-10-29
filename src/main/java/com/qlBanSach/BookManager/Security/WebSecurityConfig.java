@@ -27,6 +27,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/users/register").permitAll()
                                 .requestMatchers("/js/**", "/css/**", "/img/**", "/vendor/**", "/scss/**").permitAll()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/carts/**").permitAll()
                                 .anyRequest().authenticated())
                 .formLogin(login -> login
                         .loginPage("/users/login")

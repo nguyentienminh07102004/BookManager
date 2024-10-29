@@ -30,4 +30,7 @@ public class BookEntity extends BaseEntity {
     joinColumns = @JoinColumn(name = "bookId", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "authorId", referencedColumnName = "id"))
     private List<AuthorEntity> authors;
+
+    @OneToMany(mappedBy = "book")
+    private List<CartItemEntity> cartItems;
 }

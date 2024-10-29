@@ -8,6 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,10 +40,14 @@ public class UserEntity extends BaseEntity {
     private String password;
     @Column(name = "status")
     private String status;
-
+    @OneToOne(mappedBy = "user")
+    private CartEntity cart;
     @ManyToMany(targetEntity = RoleEntity.class)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<RoleEntity> roles;
+
+    @OneToMany(mappedBy = "user")
+    private List<OrderEntity> orders;
 }

@@ -1,9 +1,11 @@
 package com.qlBanSach.BookManager.Controller;
 
 import com.qlBanSach.BookManager.Model.DTO.UserDTO;
+import com.qlBanSach.BookManager.Model.Entity.CartEntity;
 import com.qlBanSach.BookManager.Model.Response.APIResponse;
 import com.qlBanSach.BookManager.Model.Response.UserResponse;
 import com.qlBanSach.BookManager.MyExceptionHandler.DataInvalidException;
+import com.qlBanSach.BookManager.Service.Cart.ICartService;
 import com.qlBanSach.BookManager.Service.User.IUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final IUserService userService;
+    private final ICartService cartService;
 
     @GetMapping(value = "/users/register")
     public ModelAndView registerPage() {
@@ -32,6 +35,7 @@ public class UserController {
         if(bindingResult != null && bindingResult.hasErrors()) {
             throw new DataInvalidException(bindingResult.getFieldError().getDefaultMessage());
         }
+        cartService.save(new CartEntity());
         UserResponse response = userService.save(userDTO);
         return APIResponse.builder()
                 .message("Đăng ký thành công!!")

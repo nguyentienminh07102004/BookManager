@@ -12,4 +12,5 @@ public interface IBookService {
     void deleteBookByIds(List<String> ids);
     List<BookResponse> getAllBooks();
     BookResponse getBookById(String id);
+    BookEntity getBookEntityById(String id);
 }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 
     <meta charset="utf-8">
@@ -28,7 +27,7 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <div th:replace="~{/partials/Sidebar::sidebar}"></div>
+    <div th:replace="~{/admin/partials/Sidebar::sidebar}"></div>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -38,7 +37,7 @@
         <div id="content">
 
             <!-- Topbar -->
-            <div th:replace="~{/partials/Header::header}"></div>
+            <div th:replace="~{/admin/partials/Header::header}"></div>
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
@@ -376,7 +375,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <div th:replace="~{/partials/Footer::footer}"></div>
+        <div th:replace="~{/admin/partials/Footer::footer}"></div>
         <!-- End of Footer -->
 
     </div>
