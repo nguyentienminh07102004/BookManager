@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,7 +34,7 @@ public class OrderService implements IOrderService {
         cart.getCartItems().forEach(item -> {
             item.setCart(null);
         });
-        cart.getCartItems().clear();
+        cart.setCartItems(new ArrayList<>());
         cartRepository.save(cart);
         return orderRepository.save(order);
     }
