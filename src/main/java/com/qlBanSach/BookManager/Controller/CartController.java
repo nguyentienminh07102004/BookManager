@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -38,8 +39,10 @@ public class CartController {
     }
 
     @PostMapping(value = "/cartItems/{bookIds}")
-    public APIResponse addBookToCart(@PathVariable List<String> bookIds) {
-        cartService.addCartItem(bookIds, SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+    public APIResponse addBookToCart(@PathVariable String bookIds) {
+        List<String> listBookId = new ArrayList<>();
+        listBookId.add(bookIds);
+        cartService.addCartItem(listBookId, SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
         return APIResponse.builder()
                 .message("SUCCESS")
                 .build();

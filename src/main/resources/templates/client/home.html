@@ -10,18 +10,31 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <form th:action="@{/}" method="GET" id="formPaginationPage">
-        <input type="text" name="name" placeholder="Name ..." />
-        <input type="hidden" th:value="${pagination.page}" id="currentPage" name="page">
-        <input type="hidden" th:value="${pagination.getLimit()}" id="limit" name="limit">
-        <input type="hidden" th:value="${pagination.getTotalPages()}" id="totalPages" name="totalPages">
-    </form>
-    <div class="container-fluid">
+<!--    <form th:action="@{/}" method="GET" id="formPaginationPage" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">-->
+<!--        <input type="text" class="form-control bg-light border-0 small" name="name" placeholder="Name ..." />-->
+<!--        <input type="hidden" th:value="${pagination.page}" id="currentPage" name="page">-->
+<!--        <input type="hidden" th:value="${pagination.getLimit()}" id="limit" name="limit">-->
+<!--        <input type="hidden" th:value="${pagination.getTotalPages()}" id="totalPages" name="totalPages">-->
+<!--    </form>-->
+    <div class="container-fluid body">
+        <form   th:action="@{/}" method="GET" id="formPaginationPage">
+            <div class="input-group d-flex justify-content-center">
+                <input type="text" class="input-group border border-primary rounded-left w-50" name="name" placeholder="Name ..." />
+                <input type="hidden" th:value="${pagination.page}" id="currentPage" name="page">
+                <input type="hidden" th:value="${pagination.getLimit()}" id="limit" name="limit">
+                <input type="hidden" th:value="${pagination.getTotalPages()}" id="totalPages" name="totalPages">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
         <div class="product">
             <h1 class="productTitle h3 mb-4">
                 SẢN PHẨM <span>NỔI BẬT</span>
             </h1>
-            <div class="row" style="width: 100%">
+            <div class="row text-center justify-content-center" style="width: 100%">
                 <div class="col-2 productItem" th:each="book : ${books}">
                     <div class="image">
                         <img
