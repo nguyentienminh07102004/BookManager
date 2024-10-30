@@ -13,8 +13,7 @@ public class Pagination {
         if(limit == null || limit < 1) {
             limit = limitDefault;
         }
-        Pageable pageable = PageRequest.of(page - 1, limit);
-        return pageable;
+        return PageRequest.of(page - 1, limit);
     }
 
     public Pageable pageUtil(Integer page, Integer limit) {

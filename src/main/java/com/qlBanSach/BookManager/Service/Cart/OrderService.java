@@ -35,6 +35,7 @@ public class OrderService implements IOrderService {
             item.setCart(null);
         });
         cart.setCartItems(new ArrayList<>());
+        cart.setTotalAmount(0.0D);
         cartRepository.save(cart);
         return orderRepository.save(order);
     }

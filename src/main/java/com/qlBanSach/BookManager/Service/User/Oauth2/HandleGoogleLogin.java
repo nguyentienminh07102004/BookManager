@@ -1,8 +1,10 @@
 package com.qlBanSach.BookManager.Service.User.Oauth2;
 
+import com.qlBanSach.BookManager.Model.Entity.CartEntity;
 import com.qlBanSach.BookManager.Model.Entity.UserEntity;
 import com.qlBanSach.BookManager.Repository.IUserRepository;
 import com.qlBanSach.BookManager.Repository.RoleRepository;
+import com.qlBanSach.BookManager.Service.Cart.ICartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,6 +25,7 @@ import java.util.List;
 public class HandleGoogleLogin {
     private final IUserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final ICartService cartService;
 
     public void processGoogleLogin(OAuth2AuthenticationToken authentication) {
         String email = authentication.getPrincipal().getAttribute("email");
@@ -40,6 +43,8 @@ public class HandleGoogleLogin {
                     newUser.setRoles(new ArrayList<>());
                     newUser.getRoles().add(roleRepository.findByCode("USER"));
                     newUser.setStatus("ACTIVE");
+                    CartEntity cart = cartService.save(new CartEntity());
+                    newUser.setCart(cart);
                     return userRepository.save(newUser);
                 });
 

@@ -37,7 +37,8 @@
                     url: "/orders/",
                     method: "POST",
                     success: (res) => {
-                        console.log(res);
+                        window.alert("Order success");
+                        window.location.href = "/";
                     },
                     error: (err) => {
                         console.log(err);

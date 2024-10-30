@@ -25,7 +25,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/users/login").permitAll()
                                 .requestMatchers("/users/logout").permitAll()
                                 .requestMatchers("/users/register").permitAll()
-                                .requestMatchers("/js/**", "/css/**", "/img/**", "/vendor/**", "/scss/**").permitAll()
+                                .requestMatchers("/js/**", "/css/**", "/img/**", "/vendor/**", "/scss/**", "/pagination/**").permitAll()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/carts/**").permitAll()
                                 .anyRequest().authenticated())

@@ -6,9 +6,16 @@
     <link rel="stylesheet" th:href="@{/css/clientHome.css}">
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/pagination/style.css}">
 </head>
 <body>
 <div layout:fragment="content">
+    <form th:action="@{/}" method="GET" id="formPaginationPage">
+        <input type="text" name="name" placeholder="Name ..." />
+        <input type="hidden" th:value="${pagination.page}" id="currentPage" name="page">
+        <input type="hidden" th:value="${pagination.getLimit()}" id="limit" name="limit">
+        <input type="hidden" th:value="${pagination.getTotalPages()}" id="totalPages" name="totalPages">
+    </form>
     <div class="container-fluid">
         <div class="product">
             <h1 class="productTitle h3 mb-4">
@@ -34,6 +41,26 @@
             </div>
         </div>
     </div>
+    <div class="d-flex justify-content-center">
+        <ul class="pagination-sm"></ul>
+    </div>
+    <script th:src="@{/pagination/script.js}"></script>
+    <script>
+        $(function () {
+            $(".pagination-sm").twbsPagination({
+                totalPages: parseInt($("#totalPages").val()),
+                visiblePages: parseInt($("#limit").val()),
+                startPage: parseInt($("#currentPage").val()),
+                onPageClick: function (event, page) {
+                    const currentPage = parseInt($("#currentPage").val());
+                    if(page !== currentPage) {
+                        $("#currentPage").val(page);
+                        $("#formPaginationPage").submit();
+                    }
+                }
+            });
+        });
+    </script>
 </div>
 </body>
 </html>

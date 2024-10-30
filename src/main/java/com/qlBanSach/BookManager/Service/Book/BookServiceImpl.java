@@ -62,4 +62,19 @@ public class BookServiceImpl implements IBookService {
         return bookRepository.findById(id)
                 .orElseThrow(() -> new DataInvalidException("Book not found!!!"));
     }
+
+    @Override
+    public List<BookResponse> getBookByName(String name, Integer page, Integer limit) {
+        Pageable pageable = pagination.pageUtil(page, limit);
+        List<BookEntity> bookEntities;
+        if(name != null && !name.isEmpty()) {
+            bookEntities = bookRepository.findByNameContaining(name, pageable).getContent();
+        }
+        else {
+            bookEntities = bookRepository.findAll(pageable).getContent();
+        }
+        return bookEntities.stream()
+        .map(bookConvertor::entityToResponse)
+        .toList();
+    }
 }

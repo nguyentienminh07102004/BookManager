@@ -8,8 +8,15 @@ import com.qlBanSach.BookManager.Service.Author.AuthorService;
 import com.qlBanSach.BookManager.Service.Book.IBookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -21,7 +28,7 @@ import java.util.stream.Collectors;
 public class BookController {
     private final IBookService bookService;
     private final AuthorService authorService;
-    private final MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter;
+
 
     @PostMapping(value = "/")
     @ResponseStatus(value = HttpStatus.CREATED)
