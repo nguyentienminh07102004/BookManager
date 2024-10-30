@@ -18,12 +18,12 @@ public class Pagination {
 
     public Pageable pageUtil(Integer page, Integer limit) {
         if(page == null || page < 1) {
-            page = 0;
+            page = 1;
         }
         if(limit == null || limit < 1) {
             limit = 3;
         }
-        Pageable pageable = PageRequest.of(page, limit);
+        Pageable pageable = PageRequest.of(page - 1, limit);
         return pageable;
     }
 }
