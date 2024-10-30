@@ -7,11 +7,11 @@ import com.qlBanSach.BookManager.Service.Book.IBookService;
 import com.qlBanSach.BookManager.Service.Cart.ICartService;
 import com.qlBanSach.BookManager.Service.User.IUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
@@ -22,10 +22,13 @@ public class ClientController {
     private final ICartService cartService;
     private final IUserService userService;
     @GetMapping()
-    public ModelAndView showHome() {
+    public ModelAndView showHome(@RequestParam(defaultValue = "0") int page,
+                                 @RequestParam(defaultValue = "12") int size) {
         ModelAndView view;
         view = new ModelAndView("client/home");
-        view.addObject("books", bookService.getAllBooks());
+        Pageable pageable = PageRequest.of(page, size);
+        Page<BookResponse> books = bookService.getAllBooks(pageable);
+        view.addObject("books", books);
         return view;
     }
 
@@ -43,6 +46,20 @@ public class ClientController {
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         CartEntity cart = cartService.getCart(email);
         view.addObject("cart", cart);
+        return view;
+    }
+
+    @GetMapping("search")
+    public ModelAndView search(@RequestParam(defaultValue = "0") int page,
+                               @RequestParam(defaultValue = "12") int size,
+                               @RequestParam(defaultValue = "") String keyword) {
+        ModelAndView view;
+        System.out.println(keyword);
+        view = new ModelAndView("client/home");
+        Pageable pageable = PageRequest.of(page, size);
+        Page<BookResponse> books = bookService.searchBooks(keyword, pageable);
+        view.addObject("books", books);
+        view.addObject("keyword", keyword);
         return view;
     }
 

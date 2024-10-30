@@ -7,6 +7,7 @@ import com.qlBanSach.BookManager.MyExceptionHandler.DataInvalidException;
 import com.qlBanSach.BookManager.Repository.ICartItemRepository;
 import com.qlBanSach.BookManager.Repository.ICartRepository;
 import com.qlBanSach.BookManager.Service.Book.IBookService;
+import com.qlBanSach.BookManager.Service.User.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ public class CartService implements ICartService {
     private final ICartRepository cartRepository;
     private final ICartItemRepository cartItemRepository;
     private final IBookService bookService;
+    private final UserService userService;
 
     @Override
     public CartEntity getCart(String email) {
@@ -53,7 +55,8 @@ public class CartService implements ICartService {
 
     @Override
     public void addCartItem(List<String> books, String email) {
-        CartEntity cart = getCart(email);
+        CartEntity cart = cartRepository.findByUser_Email(email).orElseGet(CartEntity::new);
+        cart.setUser(userService.getUserByEmail(email));
         books.forEach(id -> {
             CartItemEntity cartItem = cart.getCartItems().stream()
                     .filter(item -> Objects.equals(item.getBook().getId(), id))
@@ -75,7 +78,6 @@ public class CartService implements ICartService {
             }
             cartRepository.save(cart);
         });
-
     }
 
     @Override

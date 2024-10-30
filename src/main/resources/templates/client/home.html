@@ -32,6 +32,34 @@
                     </div>
                 </div>
             </div>
+            <nav th:if="${keyword == null}">
+                <ul class="pagination">
+                    <li th:classappend="${books.hasPrevious()} ? '' : 'disabled'" class="page-item">
+                        <a th:href="@{/(page=${books.number - 1}, size=${books.size})}" class="page-link">Previous</a>
+                    </li>
+                    <li class="page-item" th:each="i : ${#numbers.sequence(0, books.totalPages - 1)}"
+                        th:classappend="${books.number == i} ? 'active'">
+                        <a th:href="@{/(page=${i}, size=${books.size})}" class="page-link" th:text="${i + 1}">1</a>
+                    </li>
+                    <li th:classappend="${books.hasNext()} ? '' : 'disabled'" class="page-item">
+                        <a th:href="@{/(page=${books.number + 1}, size=${books.size})}" class="page-link">Next</a>
+                    </li>
+                </ul>
+            </nav>
+            <nav th:if="${keyword != null}">
+                <ul class="pagination">
+                    <li th:classappend="${books.hasPrevious()} ? '' : 'disabled'" class="page-item">
+                        <a th:href="@{/search(keyword=${keyword}, page=${books.number - 1}, size=${books.size})}" class="page-link">Previous</a>
+                    </li>
+                    <li class="page-item" th:each="i : ${#numbers.sequence(0, books.totalPages - 1)}"
+                        th:classappend="${books.number == i} ? 'active'">
+                        <a th:href="@{/search(keyword=${keyword}, page=${i}, size=${books.size})}" class="page-link" th:text="${i + 1}">1</a>
+                    </li>
+                    <li th:classappend="${books.hasNext()} ? '' : 'disabled'" class="page-item">
+                        <a th:href="@{/search(keyword=${keyword}, page=${books.number + 1}, size=${books.size})}" class="page-link">Next</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>

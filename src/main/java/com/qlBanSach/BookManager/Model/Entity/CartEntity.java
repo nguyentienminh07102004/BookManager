@@ -33,7 +33,7 @@ public class CartEntity {
     @Column(name = "totalAmount")
     private Double totalAmount = 0.0D;
     @OneToMany(mappedBy = "cart")
-    @Cascade(value = {CascadeType.PERSIST, CascadeType.MERGE})
+//    @Cascade(value = CascadeType.ALL)
     private List<CartItemEntity> cartItems = new ArrayList<>();
     @OneToOne
     @JoinColumn(name = "userId", referencedColumnName = "id")

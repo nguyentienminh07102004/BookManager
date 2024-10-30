@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,11 +24,12 @@ public class OrderService implements IOrderService {
     public OrderEntity createOrder() {
         String email = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         CartEntity cart = cartService.getCart(email);
-        List<CartItemEntity> cartItemEntities = cart.getCartItems();
+        List<CartItemEntity> cartItemEntities = new ArrayList<>(cart.getCartItems());
         OrderEntity order = OrderEntity.builder()
                 .status("ACCEPT")
                 .cartItems(cartItemEntities)
                 .totalPrice(cart.getTotalAmount())
+                .user(cart.getUser())
                 .build();
         cartItemEntities.forEach(item -> item.setOrder(order));
         cart.getCartItems().forEach(item -> {

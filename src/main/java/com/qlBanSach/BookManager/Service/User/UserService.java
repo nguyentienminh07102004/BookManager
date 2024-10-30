@@ -53,4 +53,11 @@ public class UserService implements IUserService {
                 .toList();
         return listUsers;
     }
+
+    @Override
+    public UserEntity getUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new DataInvalidException("User not found!"));
+    }
+
+
 }

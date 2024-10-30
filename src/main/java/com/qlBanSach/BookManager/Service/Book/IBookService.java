@@ -4,6 +4,7 @@ import com.qlBanSach.BookManager.Model.DTO.BookDTO;
 import com.qlBanSach.BookManager.Model.Entity.BookEntity;
 import com.qlBanSach.BookManager.Model.Response.BookResponse;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface IBookService {
     List<BookResponse> getAllBooks();
     BookResponse getBookById(String id);
     BookEntity getBookEntityById(String id);
+    Page<BookResponse> getAllBooks(Pageable pageable);
+    Page<BookResponse> searchBooks(String keyword, Pageable pageable);
 }

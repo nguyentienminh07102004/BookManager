@@ -10,6 +10,7 @@ import com.qlBanSach.BookManager.Service.Author.AuthorService;
 import com.qlBanSach.BookManager.Utils.Pagination;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -62,4 +63,18 @@ public class BookServiceImpl implements IBookService {
         return bookRepository.findById(id)
                 .orElseThrow(() -> new DataInvalidException("Book not found!!!"));
     }
+
+    @Override
+    public Page<BookResponse> getAllBooks(Pageable pageable) {
+        Page<BookEntity> bookEntities = bookRepository.findAll(pageable);
+        return bookEntities.map(bookConvertor::entityToResponse);
+    }
+
+    @Override
+    public Page<BookResponse> searchBooks(String keyword, Pageable pageable) {
+        Page<BookEntity> booksPage = bookRepository.findByNameContaining(keyword, pageable);
+        return booksPage.map(bookConvertor::entityToResponse);
+    }
+
+
 }
